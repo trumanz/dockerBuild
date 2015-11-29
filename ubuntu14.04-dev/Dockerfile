@@ -12,8 +12,8 @@ RUN    apt-get update -y \
     && apt-get install -y sudo   \
     
 # JAVA
-RUN DEBIAN_FRONTEND=noninteractivei \
-    && add-apt-repository -y ppa:webupd8team/java \
+RUN env DEBIAN_FRONTEND=noninteractivei \
+       add-apt-repository -y ppa:webupd8team/java \
     && apt-get -y update \
     && apt-get -y install oracle-java8-installer
 
