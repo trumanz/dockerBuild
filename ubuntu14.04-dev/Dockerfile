@@ -2,10 +2,24 @@ FROM ubuntu:14.04
 MAINTAINER Truman Zhou <truman.ck.zhou@gmail.com>
 
 
-# Installl package
-RUN  apt-add-repository ppa:webupd8team/java -y &&  apt-get update -y &&  apt-get install -y xterm  openssh-server oracle-java8-installer  g++ vim  wget  tcpdump  net-tools sudo  netcat iputils-ping git firefox
+#base dev software
+RUN    apt-get update -y \
+    && apt-get install -y software-properties-common python-software-properties \
+    && apt-get install -y openssh-server \
+    && apt-get install -y git vim g++ \
+    && apt-get install -y wget  tcpdump  net-tools netcat iputils-ping
+    && apt-get install -y xterm firefox \
+    && apt-get install -y sudo   \
+    
+# JAVA
+RUN DEBIAN_FRONTEND=noninteractivei \
+    && add-apt-repository -y ppa:webupd8team/java \
+    && apt-get -y update \
+    && apt-get -y install oracle-java8-installer
 
- 
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
+
 
 #enable ssh with root
 RUN  echo "root:root"  | chpasswd
