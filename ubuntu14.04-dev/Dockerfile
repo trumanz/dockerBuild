@@ -1,6 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER Truman Zhou <truman.ck.zhou@gmail.com>
 
+#ADD apt.conf /etc/apt/
 
 #base dev software
 RUN    apt-get update -y \
@@ -10,12 +11,13 @@ RUN    apt-get update -y \
     && apt-get install -y wget  tcpdump  net-tools netcat iputils-ping \
     && apt-get install -y sudo 
     
-#    && apt-get install -y xterm firefox \
+# && apt-get install -y xterm firefox
+
 # JAVA
 RUN env DEBIAN_FRONTEND=noninteractivei \
        add-apt-repository -y ppa:webupd8team/java \
     && apt-get -y update \
-    && apt-get -y install oracle-java8-installer
+    && yes | apt-get -y install oracle-java8-installer
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
