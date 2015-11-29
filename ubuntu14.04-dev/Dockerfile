@@ -1,8 +1,9 @@
 FROM ubuntu:14.04
 MAINTAINER Truman Zhou <truman.ck.zhou@gmail.com>
 
+
 # Installl package
-RUN apt-get update &&  apt-get install -y xterm  openssh-server  openjdk-7-jdk g++ vim  wget  tcpdump  net-tools sudo  netcat iputils-ping git firefox
+RUN  apt-add-repository ppa:webupd8team/java -y &&  apt-get update -y &&  apt-get install -y xterm  openssh-server oracle-java8-installer  g++ vim  wget  tcpdump  net-tools sudo  netcat iputils-ping git firefox
 
  
 
