@@ -7,10 +7,10 @@ RUN    apt-get update -y \
     && apt-get install -y software-properties-common python-software-properties \
     && apt-get install -y openssh-server \
     && apt-get install -y git vim g++ \
-    && apt-get install -y wget  tcpdump  net-tools netcat iputils-ping
-    && apt-get install -y xterm firefox \
-    && apt-get install -y sudo   \
+    && apt-get install -y wget  tcpdump  net-tools netcat iputils-ping \
+    && apt-get install -y sudo 
     
+#    && apt-get install -y xterm firefox \
 # JAVA
 RUN env DEBIAN_FRONTEND=noninteractivei \
        add-apt-repository -y ppa:webupd8team/java \
