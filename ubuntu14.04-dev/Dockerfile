@@ -8,7 +8,7 @@ RUN    apt-get update -y \
     && apt-get install -y software-properties-common python-software-properties \
     && apt-get install -y openssh-server \
     && apt-get install -y git vim g++ \
-    && apt-get install -y wget curl  tcpdump  net-tools netcat iputils-ping \
+    && apt-get install -y wget curl  tcpdump  net-tools netcat iputils-ping  iptraf \
     && apt-get install -y sudo 
 
 
