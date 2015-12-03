@@ -79,6 +79,14 @@ tweak_cassandra_rack_config(){
    
 }
 
+tweak_cassandra_mem(){
+  conf="$1/cassandra-env.sh"
+  regexp="s/^#MAX_HEAP_SIZE=.*/MAX_HEAP_SIZE=1G/g"
+  sed -i -- "$regexp" $conf
+  regexp="s/^#HEAP_NEWSIZE=.*/HEAP_NEWSIZE=500M/g"
+  sed -i -- "$regexp" $conf
+}
+
 tweak_spark_config() {
  sed -i -- "s|/var/lib/spark/|/data/spark/|g" $1/spark-env.sh
  sed -i -- "s|/var/log/spark/|/logs/spark/|g" $1/spark-env.sh
@@ -115,6 +123,7 @@ setup_node() {
  setup_resources "/conf" ${DSE_HOME}
  tweak_cassandra_config "/conf/cassandra"
  tweak_cassandra_rack_config "/conf/cassandra"
+ tweak_cassandra_mem  "/conf/cassandra"
  tweak_spark_config "/conf/spark"
  tweak_agent_config
  chown -R dse:dse /data /logs /conf
