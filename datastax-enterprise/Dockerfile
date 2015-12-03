@@ -61,7 +61,7 @@ VOLUME /opt/dse
 # starting node using custom entrypoint that configures paths, interfaces, etc.
 COPY dse-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/dse-entrypoint
-ENTRYPOINT ["/usr/local/bin/dse-entrypoint"]
+#ENTRYPOINT ["/usr/local/bin/dse-entrypoint"]
 
 
 # Running any other DSE/C* command should be done on behalf dse user

@@ -52,12 +52,33 @@ tweak_cassandra_config() {
  regexp="s/seeds:.*/seeds: \"${IP}\"/g";
  else
  printf " - Using seeds: $SEEDS\n";
- regexp="s/seeds:.*/seeds: \"${IP},${SEEDS}\"/g"
+ regexp="s/seeds:.*/seeds: \"${SEEDS}\"/g"
  fi
  sed -i -- "$regexp" $conf
  # JMX
  echo "JVM_OPTS=\"\$JVM_OPTS -Djava.rmi.server.hostname=127.0.0.1\"" >> $env
 }
+
+tweak_cassandra_rack_config(){
+    conf="$1/cassandra-rackdc.properties"
+    if [ -z "${DC_NAME}" ]; then
+      printf "using default dc name\n";
+    else 
+      printf "Setting DC name: ${DC_NAME}\n"
+      regexp="s/^dc=.*/dc=${DC_NAME}/g"
+      sed -i -- "$regexp" $conf
+    fi
+
+    if [ -z "${RACK_NAME}" ]; then
+      printf "using default rack name\n";
+    else 
+      printf "Setting DC name: ${RACK_NAME}\n"
+      regexp="s/^rack=.*/rack=${RACK_NAME}/g"
+      sed -i -- "$regexp" $conf
+    fi
+   
+}
+
 tweak_spark_config() {
  sed -i -- "s|/var/lib/spark/|/data/spark/|g" $1/spark-env.sh
  sed -i -- "s|/var/log/spark/|/logs/spark/|g" $1/spark-env.sh
@@ -93,11 +114,12 @@ setup_node() {
  create_dirs
  setup_resources "/conf" ${DSE_HOME}
  tweak_cassandra_config "/conf/cassandra"
+ tweak_cassandra_rack_config "/conf/cassandra"
  tweak_spark_config "/conf/spark"
  tweak_agent_config
  chown -R dse:dse /data /logs /conf
  printf "Done.\n"
 }
 # if conf dir is empty, generate config
+rm -rf   $CONF_DIR/*
 [ -z "$(ls -A $CONF_DIR)" ] && setup_node
-exec gosu dse $DSE_HOME/bin/dse cassandra -f "$@"
