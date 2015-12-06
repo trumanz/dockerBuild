@@ -2,8 +2,8 @@
 start_nodes(){
    local CASSANDRA_CLIENT_PORT=10000
    local SOLR_CLIENT_PORT=20000
-   #for n in $(echo "n0 n1 n2 s3 s4"); do 
-   for n in $(echo "n0"); do 
+   for n in $(echo "n0 n1 n2 s3 s4"); do 
+   #for n in $(echo "n0"); do 
      echo "Start $n"
      docker run --name=$n   -h $n -t -d -i  -p "$CASSANDRA_CLIENT_PORT:9042" -p  "$SOLR_CLIENT_PORT:8983"  test/datastax   /bin/bash
      CASSANDRA_CLIENT_PORT=$(($CASSANDRA_CLIENT_PORT + 1))
@@ -38,23 +38,21 @@ config_node(){
 start_service() {
    DSE_HOME=/opt/dse
    #config_node
-   #start  seed first, n0 n1 n2  as cassandra node
    docker exec  -d -t -i  n0   sh -c "gosu dse $DSE_HOME/bin/dse cassandra  -f >/dse.log  2>&1"    #cassandra node
-   sleep 30
-   #docker exec  -d -t -i  node3   gosu dse $DSE_HOME/bin/dse cassandra  -f  -s -k #Search Analytics node,  spark + solr
+   #sleep 30
    docker exec  -d -t -i  n1   sh -c "gosu dse $DSE_HOME/bin/dse cassandra  -f >/dse.log  2>&1"   
-   sleep 30
+   #sleep 30
    docker exec  -d -t -i  n2   sh -c "gosu dse $DSE_HOME/bin/dse cassandra  -f >/dse.log  2>&1"  
-   sleep 30
+   #sleep 30
 
-   #docker exec  -d -t -i  s3   sh -c  "gosu dse $DSE_HOME/bin/dse cassandra  -f  -s >/dse.log  2>&1"  #search node , solr
+   docker exec  -d -t -i  s3   sh -c  "gosu dse $DSE_HOME/bin/dse cassandra  -f  -s >/dse.log  2>&1"  #search node , solr
    #sleep 10
-   #docker exec  -d -t -i  s4   sh -c  "gosu dse $DSE_HOME/bin/dse cassandra  -f  -s >/dse.log  2>&1" 
+   docker exec  -d -t -i  s4   sh -c  "gosu dse $DSE_HOME/bin/dse cassandra  -f  -s >/dse.log  2>&1" 
    #sleep 10
 }
 
 
 start_nodes
-#config_node
-#start_service
+config_node
+start_service
 
