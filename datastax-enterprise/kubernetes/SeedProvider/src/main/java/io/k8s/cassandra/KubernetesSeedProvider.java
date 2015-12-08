@@ -99,6 +99,11 @@ public class KubernetesSeedProvider implements SeedProvider {
     }
 
     public List<InetAddress> getSeeds() {
+
+        // try with below command in pods
+        //    KUBE_TOKEN=$(</var/run/secrets/kubernetes.io/serviceaccount/token)
+        //    curl -sSk -H "Authorization: Bearer $KUBE_TOKEN"  https://192.168.3.1:443/api/v1/namespaces/default/endpoints/hello-node
+ 
         List<InetAddress> list = new ArrayList<InetAddress>();
         //String host = "https://kubernetes.default.svc.cluster.local";
         String proto = "https://";
