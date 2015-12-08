@@ -12,10 +12,12 @@ spec:
         app: node-hello
     spec:
       containers:
+        - command:
+            - /run.sh
           resources:
             limits:
               cpu: 0.1
-          image: trumanz/trumanz/nodejs-hello
+          image: trumanz/nodejs-hello
           name: node-hello
           ports:
             - containerPort: 8080
