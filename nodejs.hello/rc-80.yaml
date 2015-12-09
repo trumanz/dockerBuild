@@ -3,25 +3,26 @@ kind: ReplicationController
 metadata:
   labels:
     app: node-hello
-  name: node-hello
+  name: node-hello-80
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: node-hello
+        app: node-hello-80
+        service: node-hello-http-service
     spec:
       containers:
-        - command:
-            - /run.sh
+        - name: node-hello-80
+          image: trumanz/nodejs-hello
+          args: [ bash, -c, 
+                  "sed -i -- 's/8080/80/g'    /server.js   &&  /run.sh"]
           resources:
             limits:
               cpu: 0.1
-          image: trumanz/nodejs-hello
-          name: node-hello
           ports:
-            - containerPort: 8080
-              name: http
+            - containerPort: 80
+              name: http80
           volumeMounts:
             - mountPath: /data
               name: data

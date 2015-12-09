@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    app: node-hello
+  name: node-hello-8080
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: node-hello-8080
+        service: node-hello-http-service
+    spec:
+      containers:
+        - name: node-hello-8080
+          image: trumanz/nodejs-hello
+          command:
+             - /run.sh
+          resources:
+            limits:
+              cpu: 0.1
+          ports:
+            - containerPort: 8080
+              name: http8080
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: data
+          emptyDir: {}
