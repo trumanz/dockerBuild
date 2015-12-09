@@ -10,6 +10,7 @@ spec:
     metadata:
       labels:
         app: dse-cassandra
+        service: dse
     spec:
       containers:
         - command:
@@ -30,8 +31,8 @@ spec:
             - name: HEAP_NEWSIZE
               value: 100M
             #TODO
-            - name: CASSANDRA_SERVICE
-              value: dse-cassandra
+            - name: SERVICE_NAME
+              value: dse-service
             - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
