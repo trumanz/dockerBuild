@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - command:
-            - run-cassandra.sh
+            - /run-cassandra.sh
           resources:
             limits:
               cpu: 0.1
@@ -29,6 +29,9 @@ spec:
               value: 512M
             - name: HEAP_NEWSIZE
               value: 100M
+            #TODO
+            - name: CASSANDRA_SERVICE
+              value: dse-cassandra
             - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
