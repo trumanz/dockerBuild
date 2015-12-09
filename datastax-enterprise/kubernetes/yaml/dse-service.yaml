@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: dse-cassandra
+  name: dse-cassandra
+spec:
+  ports:
+    - port: 9042
+      nodePort: 30001
+  type: NodePort
+  selector:
+    app: dse-cassandra
