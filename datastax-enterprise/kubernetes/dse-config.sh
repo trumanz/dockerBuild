@@ -31,9 +31,9 @@ echo "CLUSTER_NAME=$CLUSTER_NAME"
 CASS_YAML=/opt/dse-4.8.2/resources/cassandra/conf/cassandra.yaml
 CASS_RACK=/opt/dse-4.8.2/resources/cassandra/conf/cassandra-rackdc.properties
 
-[ -z "${CLUSTER_NAME}" ] &&   sed -i -- "s/Test Cluster/${CLUSTER_NAME}/g"  $CASS_YAML
+[ -z "${CLUSTER_NAME}" ] ||   sed -i -- "s/Test Cluster/${CLUSTER_NAME}/g"  $CASS_YAML
 
-[ -z "${DATA_CENTER}" ] &&   sed -i -- "s/^dc=.*/dc=${DATA_CENTER}/g"  $CASS_RACK
+[ -z "${DATA_CENTER}" ] ||   sed -i -- "s/^dc=.*/dc=${DATA_CENTER}/g"  $CASS_RACK
 
 sed -i -- "s/^rpc_address:.*/rpc_address: \"${HOST_IP}\"/g"  $CASS_YAML
 sed -i -- "s/^listen_address:.*/listen_address: \"${HOST_IP}\"/g"  $CASS_YAML
