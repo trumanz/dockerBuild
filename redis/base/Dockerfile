@@ -8,5 +8,6 @@ RUN mkdir redis-build && cd redis-build &&\
     mkdir -p /opt/redis/etc && \
     make PREFIX=/opt/redis   install  && \
     cp redis.conf  /opt/redis/etc
-
+#TODO
+#delete the redis-build director
 
