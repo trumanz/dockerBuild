@@ -1,0 +1,6 @@
+#!/bin/bash
+cmd=$(basename $0)
+# prefer the command in DSE_HOME/bin
+full_cmd_path=$(find -L $DSE_HOME/bin $DSE_HOME -type f -name $cmd | head -1)
+export CQLSH_HOST="$(hostname --ip-address)"
+exec gosu dse $full_cmd_path "$@"
