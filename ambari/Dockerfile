@@ -6,6 +6,6 @@ RUN  wget -nv http://public-repo-1.hortonworks.com/ambari/ubuntu14/2.x/updates/2
      && apt-get update  \
      && apt-get install -y ambari-server ambari-agent 
 
-RUN  rm /root/.ssh/*  
+RUN  rm -f /root/.ssh/*  
 COPY ssh/*  /root/.ssh/
 
