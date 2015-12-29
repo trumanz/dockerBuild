@@ -14,4 +14,5 @@ tar xf  ambari-2.2.0.0-ubuntu14.tar.gz  -C   $REPO_PATH
 tar xf  HDP-2.3.4.0-ubuntu14-deb.tar.gz -C   $REPO_PATH
 tar xf HDP-UTILS-1.1.0.20-ubuntu14.tar.gz -C  $REPO_PATH
 
-docker run -t -i  -d  -v  $REPO_PATH:/var/www/html/ trumanz/apache2  /bin/bash
+docker run --name=ambari-repo-server  -t -i  -d  -v  $REPO_PATH:/var/www/html/ trumanz/apache2  /bin/bash
+docker exec -t -i  ambari-repo-server  /etc/init.d/apache2 start
