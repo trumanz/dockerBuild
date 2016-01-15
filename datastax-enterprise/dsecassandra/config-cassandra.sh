@@ -43,6 +43,7 @@ sed -i -- "s/^listen_address:.*/listen_address: \"${HOST_IP}\"/g"  $CASS_YAML
 
 #endpoint_snitch  ?
 sed -i -- "s/^endpoint_snitch:.*/endpoint_snitch: GossipingPropertyFileSnitch/g" $CASS_YAML
+sed -i -- "s/^# num_tokens:.*/num_tokens: 256/g" $CASS_YAML
 
 
 
