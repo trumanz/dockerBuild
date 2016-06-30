@@ -1,0 +1,3 @@
+Host 10.29.98.2
+  User git
+  IdentityFile ~/.ssh/id_rsa.gitfs

@@ -5,29 +5,46 @@ MAINTAINER Truman Zhou <truman.ck.zhou@gmail.com>
 #https://docs.saltstack.com/en/latest/topics/installation/ubuntu.html
 
 RUN apt-get update
-
 RUN apt-get install -y python-software-properties software-properties-common
 
-RUN add-apt-repository ppa:saltstack/salt
+RUN env http_proxy="10.5.96.90:3128" wget -O - https://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
 
-RUN add-apt-repository ppa:saltstack/salt2015-5
+RUN echo "deb http://repo.saltstack.com/apt/ubuntu/14.04/amd64/latest trusty main" > /etc/apt/sources.list.d/saltstack.list
 
-RUN echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-
-RUN env http_proxy="10.5.96.90:3128" wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
 
 RUN apt-get update
 
-RUN apt-get install -y salt-api salt-cloud salt-master salt-minion salt-ssh salt-syndic
-
-
-
+RUN apt-get install -y salt-master salt-minion
+RUN apt-get install -y salt-ssh salt-syndic
+RUN apt-get install -y salt-cloud
+RUN apt-get install -y salt-api
 
 #Git Fileserver Backend 
 # https://docs.saltstack.com/en/latest/topics/tutorials/gitfs.html
-yum install python-pygit2
+RUN apt-get install python-git
+ADD  conf/gitfs.conf  /etc/salt/master.d/
+ADD  conf/reactor.conf  /etc/salt/master.d/
+#ssh for git
+RUN mkdir /root/.ssh
+ADD  conf/ssh     /root/.ssh/
+
+RUN mkdir /srv/reactor
+ADD conf/update_fileserver.sls  /srv/reactor/
 
 
 #work with vmware
 #https://docs.saltstack.com/en/latest/topics/cloud/vmware.html
 RUN pip install pyvmomi
+
+
+#ADD  sh_vcenter.conf  /etc/salt/cloud.providers.d/
+
+#ADD  vm_clone.conf  /etc/salt/cloud.profiles.d/
+
+
+EXPOSE 4505
+EXPOSE 4506
+
+VOLUME  /etc/salt/
+
+
