@@ -32,6 +32,9 @@ RUN mkdir /srv/reactor
 ADD conf/update_fileserver.sls  /srv/reactor/
 
 
+#salt key
+#ADD salt_key/salt_minion.pub    /etc/salt/pki/master/minions/salt_minion
+
 #work with vmware
 #https://docs.saltstack.com/en/latest/topics/cloud/vmware.html
 RUN pip install pyvmomi
