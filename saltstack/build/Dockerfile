@@ -19,22 +19,22 @@ RUN apt-get install -y salt-ssh salt-syndic
 RUN apt-get install -y salt-cloud
 RUN apt-get install -y salt-api
 
-#3. add key
-
+#3. add salt key for preseed, and master's key
 ADD  conf/keys/sls-common-key.pub  /etc/salt/pki/master/minions/sls-common-key
-
+ADD  conf/keys/master.pem   /etc/salt/pki/master/master.pem
+ADD  conf/keys/master.pub   /etc/salt/pki/master/master.pub
 
 #3. Git Fileserver Backend 
 # https://docs.saltstack.com/en/latest/topics/tutorials/gitfs.html
-RUN apt-get install python-git
-ADD  conf/gitfs.conf  /etc/salt/master.d/
-ADD  conf/reactor.conf  /etc/salt/master.d/
+#RUN apt-get install python-git
+#ADD  conf/gitfs.conf  /etc/salt/master.d/
+#ADD  conf/reactor.conf  /etc/salt/master.d/
 #ssh for git
-RUN mkdir /root/.ssh
-ADD  conf/ssh     /root/.ssh/
+#RUN mkdir /root/.ssh
+#ADD  conf/ssh     /root/.ssh/
 
-RUN mkdir /srv/reactor
-ADD conf/update_fileserver.sls  /srv/reactor/
+#RUN mkdir /srv/reactor
+#ADD conf/update_fileserver.sls  /srv/reactor/
 
 
 #salt key
@@ -42,7 +42,7 @@ ADD conf/update_fileserver.sls  /srv/reactor/
 
 #4. work with vmware
 #https://docs.saltstack.com/en/latest/topics/cloud/vmware.html
-RUN pip install pyvmomi
+#RUN pip install pyvmomi
 
 
 #ADD  sh_vcenter.conf  /etc/salt/cloud.providers.d/
