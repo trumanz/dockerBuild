@@ -19,6 +19,11 @@ RUN apt-get install -y salt-ssh salt-syndic
 RUN apt-get install -y salt-cloud
 RUN apt-get install -y salt-api
 
+#3. add key
+
+ADD  conf/keys/sls-common-key.pub  /etc/salt/pki/master/minions/sls-common-key
+
+
 #3. Git Fileserver Backend 
 # https://docs.saltstack.com/en/latest/topics/tutorials/gitfs.html
 RUN apt-get install python-git
