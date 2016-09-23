@@ -24,6 +24,9 @@ ADD  conf/keys/sls-common-key.pub  /etc/salt/pki/master/minions/sls-common-key
 ADD  conf/keys/master.pem   /etc/salt/pki/master/master.pem
 ADD  conf/keys/master.pub   /etc/salt/pki/master/master.pub
 
+#4. configuraton
+ADD  conf/master.d/* /etc/salt/master.d/
+
 #3. Git Fileserver Backend 
 # https://docs.saltstack.com/en/latest/topics/tutorials/gitfs.html
 #RUN apt-get install python-git

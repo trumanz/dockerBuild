@@ -1,4 +1,9 @@
 #!/bin/sh
-id=$(docker run -d -ti  -p 4505:4505 -p  4506:4506  trumanz/saltstack   salt-master  -l debug)
+
+DIR=$(pwd)
+DIR=$(readlink -f $DIR)
+DIR=$DIR/exdata
+echo $DIR
+id=$(docker run -d -ti -v $DIR:/exdata -p 4505:4505 -p  4506:4506  trumanz/saltstack   salt-master  -l debug)
 
 docker exec -ti $id bash
