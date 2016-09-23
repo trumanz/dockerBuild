@@ -36,3 +36,6 @@
        - source: salt://pxecfg/esxi6.0.0b.boot.cfg
        - mkdirs: True
 
+/var/www/html/ESXi_install_script:
+     file.managed:
+       - source: salt://pxecfg/ESXi_install_script
