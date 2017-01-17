@@ -10,4 +10,4 @@ RUN ln -s /opt/elasticsearch*  /opt/elasticsearch
 #RUN /opt/elasticsearch/bin/plugin install lmenezes/elasticsearch-kopf
 RUN useradd  elastic
 RUN chown -R  elastic:elastic   /opt/elasticsearch*
-ADD run.sh /
+ADD es_entrypoint.sh /
