@@ -10,4 +10,5 @@ RUN ln -s /opt/elasticsearch*  /opt/elasticsearch
 #RUN /opt/elasticsearch/bin/plugin install lmenezes/elasticsearch-kopf
 RUN useradd  elastic
 RUN chown -R  elastic:elastic   /opt/elasticsearch*
+RUN sed  -i  's/^#network.host:/network.host: 0.0.0.0/'   /opt/elasticsearch/config/elasticsearch.yml
 ADD es_entrypoint.sh /
