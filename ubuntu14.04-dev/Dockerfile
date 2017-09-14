@@ -7,11 +7,13 @@ MAINTAINER Truman Zhou <truman.ck.zhou@gmail.com>
 RUN apt-get update -y \
     && apt-get install -y software-properties-common python-software-properties \
     && apt-get install -y openssh-server \
+    && apt-get install -y libglpk-dev  \
     && apt-get install -y git vim g++ make \
     && apt-get install -y  python-dev python-pip \
     && apt-get install -y wget curl  tcpdump  net-tools netcat iputils-ping  iptraf \
     && apt-get install -y sudo  \
     && apt-get install -y libboost-all-dev  \
+    && apt-get install -y libjsoncpp-dev  \
     && apt-get autoclean
 
 
