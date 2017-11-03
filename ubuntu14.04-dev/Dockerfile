@@ -30,7 +30,9 @@ RUN env DEBIAN_FRONTEND=noninteractivei \
 RUN apt-get install -y libjna-java
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-
+#gcovr
+RUN wget https://github.com/gcovr/gcovr/archive/3.3.tar.gz
+RUN pip install 3.3.tar.gz
 
 #enable ssh with root
 RUN  echo "root:root"  | chpasswd
